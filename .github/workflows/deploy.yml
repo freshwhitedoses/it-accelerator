@@ -1,0 +1,20 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: deploy
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: sudo docker remove -f back && sudo docker pull olechochek/rksp:latest && sudo docker run --name back -p8083:8083 -e SPRING_DATASOURCE_URL=jdbc:postgresql://158.160.87.34:5432/postgres olechochek/rksp
