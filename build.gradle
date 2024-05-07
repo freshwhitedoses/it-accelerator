@@ -12,7 +12,7 @@ jib {
         ports = ['8080/tcp']
     }
     to {
-        image = project.properties["dockerHubImageName"]
+        image = 'olechochek/rksp'
         auth {
             username = project.properties["dockerHubUsername"]
             password = project.properties["dockerHubPassword"]
