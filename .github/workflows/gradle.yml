@@ -1,15 +1,12 @@
-name: Build and publish
+name: Build and Deploy
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
     branches: [ "main" ]
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -23,22 +20,17 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: ./gradlew jib -PdockerHubUsername=${{ secrets.DOCKER_HUB_USERNAME }} -PdockerHubPassword=${{ secrets.DOCKER_HUB_PASSWORD }}
-
-  dependency-submission:
-
+      
+  deploy:
+    needs: build-and-publish
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
     - uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
+    - name: deploy
+      uses: appleboy/ssh-action@v1.0.3
       with:
-        java-version: '17'
-        distribution: 'temurin'
-
-    # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
-    # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
-    - name: Generate and submit dependency graph
-      uses: gradle/actions/dependency-submission@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: sudo docker remove -f back && sudo docker pull olechochek/rksp:latest && sudo docker run --name back -p80
