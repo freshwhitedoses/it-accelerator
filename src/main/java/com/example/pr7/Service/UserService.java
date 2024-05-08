@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
     }
     public boolean isValidUser(UserLoginDto user) {
         Optional<User> user1 = userRepository.findUserByEmail(user.getEmail());
-        if (userRepository.findUserByEmail(user.getEmail()).isPresent()
+        if (!userRepository.findUserByEmail(user.getEmail()).isPresent()
                 || !this.emailService.getCode(user.getEmail()).isPresent()
                 || this.emailService.getCode(user.getEmail()).get().getCode() != user.getCode()
         ) return false;

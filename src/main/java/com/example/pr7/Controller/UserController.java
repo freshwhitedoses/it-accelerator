@@ -58,9 +58,9 @@ public class UserController {
                     new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtGenerator.generateToken(authentication);
-            return new ResponseEntity<>(new Response<>(true, "Регистрация прошла успешно", new AuthResponseDTO(token)), HttpStatus.OK);
+            return new ResponseEntity<>(new Response<>(true, "OK", new AuthResponseDTO(token)), HttpStatus.OK);
         }
-        return new ResponseEntity<>(new Response<>(false, "Такой пользователь уже существует", null), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new Response<>(false, "Произошла ошибка", null), HttpStatus.BAD_REQUEST);
     }
 
     @PreAuthorize("isAuthenticated()")
