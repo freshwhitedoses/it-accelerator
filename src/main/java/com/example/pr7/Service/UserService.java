@@ -33,10 +33,16 @@ public class UserService implements UserDetailsService {
     }
     public boolean isValidUser(UserLoginDto user) {
         Optional<User> user1 = userRepository.findUserByEmail(user.getEmail());
-        if(user1.isEmpty()) return false;
+        if(user1.isEmpty()) {
+            System.out.println("user not found");
+            return false;
+        }
         if ( !this.emailService.getCode(user.getEmail()).isPresent()
                 || this.emailService.getCode(user.getEmail()).get().getCode() != user.getCode()
-        ) return false;
+        ){
+            System.out.println("code wrong");
+            return false;
+        }
         System.out.println(user1.get().getPassword());
         System.out.println(SecurityConfig.encoder().matches(user.getPassword(), user1.get().getPassword()));
         return user1.filter(value -> SecurityConfig.encoder().matches(user.getPassword(), value.getPassword())).isPresent();
