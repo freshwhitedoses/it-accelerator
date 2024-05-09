@@ -1,5 +1,6 @@
 package com.example.pr7.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,6 +18,6 @@ public class UserDto {
     private String telegramId;
     private String email;
     private Role role;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate birthDate;
 }
