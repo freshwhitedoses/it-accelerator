@@ -14,8 +14,10 @@ jib {
     to {
         image = 'olechochek/rksp'
         auth {
-            username = project.properties["dockerHubUsername"]
-            password = project.properties["dockerHubPassword"]
+            if(project.properties["dockerHubUsername"]!=null) {
+                username = project.properties["dockerHubUsername"]
+                password = project.properties["dockerHubPassword"]
+            }
         }
     }
 }
