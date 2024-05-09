@@ -1,6 +1,7 @@
 package com.example.pr7.Entity;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -28,6 +29,7 @@ public class User implements UserDetails {
     private String password;
     private String email;
     private Role role;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthDate;
     @Column(name = "username")
     private String usernick;
