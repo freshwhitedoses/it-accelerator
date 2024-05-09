@@ -1,6 +1,5 @@
 package com.example.pr7.Config;
 
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -15,9 +14,9 @@ import java.time.format.DateTimeFormatter;
 
 @JsonComponent
 public class LocalDateJsonConverter {
-    DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+    static DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
 
-    public class Serialize extends JsonSerializer<LocalDate> {
+    public static class Serialize extends JsonSerializer<LocalDate> {
 
         @Override
         public void serialize(LocalDate value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
@@ -25,10 +24,9 @@ public class LocalDateJsonConverter {
         }
     }
 
-    public class Deserialize extends JsonDeserializer<LocalDate> {
-
+    public static class Deserialize extends JsonDeserializer<LocalDate> {
         @Override
-        public LocalDate deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
+        public LocalDate deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
             return LocalDate.parse(p.getText(), formatter);
         }
     }
