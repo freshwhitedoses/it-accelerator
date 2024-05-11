@@ -89,7 +89,7 @@ public class StartupController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'INVESTOR')")
     @GetMapping("/startups/investor")
-    public ResponseEntity<Response> getStartupsForInvestor(@RequestParam Integer mainInStartup, @RequestParam Integer mainInMe, @RequestParam Integer maturityStage) {
+    public ResponseEntity<Response> getStartupsForInvestor(@RequestParam(required = false) Integer mainInStartup, @RequestParam(required = false) Integer mainInMe, @RequestParam(required = false) Integer maturityStage) {
         List<Startup> startupList = startupService.getStartupsByAnalystStatusAndFilters(mainInStartup, mainInMe, maturityStage);
         if (startupList == null) {
             return new ResponseEntity<>(new Response<>(false, "Произошла ошибка", null), HttpStatus.BAD_REQUEST);
