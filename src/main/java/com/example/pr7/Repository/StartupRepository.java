@@ -19,6 +19,6 @@ public interface StartupRepository extends JpaRepository<Startup, UUID> {
     List<Startup> getStartupsByTeamIdAndStatus(UUID teamId, int status);
 
     @Query("SELECT st FROM Startup st WHERE (:status IS NULL OR st.status = :status) AND (:mainInMe IS NULL OR :mainInMe = st.mainInMe)AND (:mainInStartup IS NULL OR :mainInStartup = st.mainInStartup)AND (:maturityStage IS NULL OR :maturityStage = st.maturityStage)")
-    List<Startup> getStartupsByFilters(@Param("status") int status , @Param("mainInStartup") int mainInStartup, @Param("mainInMe") int mainInMe, @Param("maturityStage") int maturityStage);
+    List<Startup> getStartupsByFilters(@Param("status") Integer status , @Param("mainInStartup") Integer mainInStartup, @Param("mainInMe") Integer mainInMe, @Param("maturityStage") Integer maturityStage);
 
 }

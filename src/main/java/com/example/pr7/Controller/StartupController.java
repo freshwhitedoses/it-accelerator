@@ -39,7 +39,7 @@ public class StartupController {
         if(startup1 == null) {
             return new ResponseEntity<>(new Response<>(false, "Произошла ошибка", null),HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(new Response<>(true, "Стартап успешно изменен", startup1),HttpStatus.OK);
+        return new ResponseEntity<>(new Response<>(true, "OK", startup1),HttpStatus.OK);
     }
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MODERATOR')")
     @PutMapping("/analyst/feedback")
@@ -70,7 +70,7 @@ public class StartupController {
         if (newStartup == null) {
             return new ResponseEntity<>(new Response<>(false, "Произошла ошибка", null), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(new Response<>(true, "OK", newStartup), HttpStatus.OK);
+        return new ResponseEntity<>(new Response<>(true, "Стартап успешно изменен", newStartup), HttpStatus.OK);
     }
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @DeleteMapping("/startup")
@@ -89,7 +89,7 @@ public class StartupController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'INVESTOR')")
     @GetMapping("/startups/investor")
-    public ResponseEntity<Response> getStartupForInvestor(@RequestParam int mainInStartup, @RequestParam int mainInMe, @RequestParam int maturityStage) {
+    public ResponseEntity<Response> getStartupsForInvestor(@RequestParam Integer mainInStartup, @RequestParam Integer mainInMe, @RequestParam Integer maturityStage) {
         List<Startup> startupList = startupService.getStartupsByAnalystStatusAndFilters(mainInStartup, mainInMe, maturityStage);
         if (startupList == null) {
             return new ResponseEntity<>(new Response<>(false, "Произошла ошибка", null), HttpStatus.BAD_REQUEST);
@@ -98,7 +98,7 @@ public class StartupController {
     }
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MODERATOR')")
     @GetMapping("/startups/moderator")
-    public ResponseEntity<Response> getStartupForModerator(@RequestParam int status) {
+    public ResponseEntity<Response> getStartupsForModerator(@RequestParam int status) {
         List<Startup> startupList = startupService.getStartupsByAnalystStatus(status);
         if (startupList == null) {
             return new ResponseEntity<>(new Response<>(false, "Произошла ошибка", null), HttpStatus.BAD_REQUEST);

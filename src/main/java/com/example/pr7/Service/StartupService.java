@@ -83,7 +83,7 @@ public class StartupService {
         });
         return startupDtos;
     }
-    public List<Startup> getStartupsByAnalystStatusAndFilters(int mainInStartup, int mainInMe, int maturityStage) {
+    public List<Startup> getStartupsByAnalystStatusAndFilters(Integer mainInStartup, Integer mainInMe, Integer maturityStage) {
         return this.startupRepository.getStartupsByFilters(1,mainInStartup, mainInMe,maturityStage);
     }
 }
