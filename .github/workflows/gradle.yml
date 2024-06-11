@@ -33,4 +33,4 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        script: sudo docker remove -f back && sudo docker pull olechochek/rksp:latest && sudo docker run --name back -p8083:8083 -e SPRING_DATASOURCE_URL=jdbc:postgresql://158.160.87.34:5432/postgres -d olechochek/rksp
+        script: sudo docker remove -f back && sudo docker pull olechochek/rksp:latest && sudo docker run --name back -p8083:8083 -e SPRING_DATASOURCE_URL=jdbc:postgresql://158.160.64.213:5432/postgres -d olechochek/rksp
